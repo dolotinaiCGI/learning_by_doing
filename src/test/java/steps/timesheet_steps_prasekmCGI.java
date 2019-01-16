@@ -3,6 +3,7 @@ package steps;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -26,9 +27,7 @@ public class timesheet_steps_prasekmCGI {
 	
 	@Given("^User is logged in the timesheet application with specified credentails$")
 	public void user_is_logged_in_the_timesheet_application_with_specified_credentails() throws Exception {
-		
-	
-		
+				
 		WebDriver browser = DriverUtil.getDriver();
 		
 		// get the url and credentials from the classified.txt file 
@@ -38,29 +37,28 @@ public class timesheet_steps_prasekmCGI {
 		String username = classifiedInfo.get(1);
 		String password = classifiedInfo.get(2);
 		
+		// navigate to the timesheet url
 		browser.get(timesheetUrl);
 		
 		WebElement inputUsername = browser.findElement(By.id("userid"));
 		inputUsername.clear();
 		inputUsername.sendKeys(username);
-				
 			
 		WebElement inputPassword = browser.findElement(By.id("pwd"));
 		inputPassword.clear();
 		inputPassword.sendKeys(password);
-				
-		
+			
 		WebElement buttonLogin = browser.findElement(By.name("Submit"));
 		buttonLogin.click();
 		
 		
 		WebElement result = browser.findElement(By.xpath("//*[@id=\"PTNUI_LAND_WRK_GROUPBOX14$PIMG\"]/span[1]"));
 	
-// Assertion type #1: check if the text is present on page		
+		// Assertion type #1: check if the text is present on page		
 		String resultText = result.getText();
 		assertEquals(resultText, "PSA Finance");
 		
-// Assertion type #2: gehc if the object is displayed on page
+		// Assertion type #2: check if the object is displayed on page
 		assertTrue(result.isDisplayed());		
 		
 	}
@@ -225,8 +223,63 @@ public class timesheet_steps_prasekmCGI {
 
 		WebDriver browser = DriverUtil.getDriver();
 		
+		WebElement attachmentsLink = browser.findElement(By.id("UC_EX_WRK_ATTACHMENT_PB$323$"));
+		attachmentsLink.click();
 		
+		// get the lists from the table
+		List<List<String>> data = attachmentsTable.raw();
 		
+		// get the number of attachments
+		int numOfAttach = data.size() - 1;
+		
+//---------------------------------------------------------------------------------------------------------------------------------------------		
+		
+		for (int i = 0; i < numOfAttach; i++) {
+		
+		// click on Add Attachment button
+		WebElement addAttachment = browser.findElement(By.id("UC_TI_ATTAC_WRK_ATTACHADD$" + i));
+		addAttachment.click();
+		
+		// switch to popup iframe		
+		browser.switchTo().defaultContent();
+		WebElement popupIframe = browser.findElement(By.xpath("//iframe[@title='Popup window']"));
+		browser.switchTo().frame(popupIframe);
+		
+		//get a url from the list
+		String path = data.get(i + 1).get(0);
+		WebElement browseButton = browser.findElement(By.name("#ICOrigFileName"));
+		browseButton.sendKeys(path);
+		
+		// click on the upload button
+		WebElement uploadButton = browser.findElement(By.name("Upload"));
+		uploadButton.click();
+		browser.switchTo().defaultContent();
+		
+		// wait for popup to close
+		Wrappers.waitForElementToDisappear("//iframe[@title='Popup window']");
+		
+		// switch to main iframe
+		browser.switchTo().defaultContent();
+		WebElement mainIframe = browser.findElement(By.xpath("//iframe[@title='Main Content']"));
+		browser.switchTo().frame(mainIframe);
+				
+		// add another row
+		WebElement addIcon = browser.findElement(By.id("UC_FILE_UPL_TM$new$" + i + "$$0"));
+		addIcon.click();
+	
+		}
+		
+//		UC_TI_ATTAC_WRK_ATTACHADD$1
+//		UC_FILE_UPL_TM$new$1$$0
+//		UC_TI_ATTAC_WRK_ATTACHADD$2
+
+//---------------------------------------------------------------------------------------------------------------------------------------------		
+
+		Thread.sleep(2000);
+		
+		WebElement doneButton = browser.findElement(By.id("UC_EX_WRK_UC_DONE_PB$0"));
+		doneButton.click();
+
 		
 		Thread.sleep(10000);
 		
@@ -247,7 +300,6 @@ public class timesheet_steps_prasekmCGI {
 		
 		
 		List<List<String>> data = nonProjectTable.raw();
-
 		
 		for (int i = 0; i < 19; i++) {
 		      
