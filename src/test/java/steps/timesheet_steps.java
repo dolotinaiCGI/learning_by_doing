@@ -12,7 +12,7 @@ import framework.Helpers;
 
 public class timesheet_steps {
 	
-	// get the driver:
+	// get the driver an extra comment:
 	WebDriver browser = DriverUtil.getDriver();
 	
 	@Given("^User is logged in the timesheet application$")
