@@ -7,7 +7,7 @@ Feature: Timesheet creation
 	   |                 |            |            | 
 	   When User navigates to CGI Timesheet Reports
 	   And User fill main time report details
-	   | Empl ID *   | Period End Date * |
+	   | 114369   | Period End Date * |
 	   |             |                   |
 	   And User creates a blank time report
 	   And User added comment: ""
