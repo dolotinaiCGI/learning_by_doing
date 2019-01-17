@@ -1,6 +1,6 @@
 Feature: Timesheet creation  
    
-   @timesheet 
+   @timesheetno
    Scenario: User should be able to submit a new timesheet
 	   Given User is logged in the timesheet application with specified credentails
 	   | Timesheet Url * | Username * | Password * |

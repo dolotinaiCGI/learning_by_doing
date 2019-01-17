@@ -178,9 +178,13 @@ public class steps_slachtaoCGI {
 		textProject.sendKeys(projectCode);
 						
 		// wait a bit ?????
-		/*
-		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		*/
+		Thread.sleep(10000);
+		
+		// change to the main iframe
+				WebElement mainIframe = browser.findElement(By.xpath("//iframe[@title='Main Content']"));
+				browser.switchTo().frame(mainIframe);
+		
+		
 		
 		// fill in activity
 		// id: ACTIVITY_CODE$0
@@ -188,7 +192,9 @@ public class steps_slachtaoCGI {
 		textActivity.clear();
 		textActivity.sendKeys(activityCode);
 		
-
+		// change to the main iframe
+				WebElement mainIframe2 = browser.findElement(By.xpath("//iframe[@title='Main Content']"));
+				browser.switchTo().frame(mainIframe2);
 		
 		// fill in the hours
 		/*

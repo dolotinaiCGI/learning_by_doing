@@ -1,0 +1,56 @@
+warning: LF will be replaced by CRLF in src/test/java/features/timesheet_slachtaoCGI.feature.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/test/java/steps/steps_slachtaoCGI.java.
+The file will have its original line endings in your working directory
+[1mdiff --git a/src/test/java/features/timesheet.feature b/src/test/java/features/timesheet.feature[m
+[1mindex 5cb133c..8b29799 100644[m
+[1m--- a/src/test/java/features/timesheet.feature[m
+[1m+++ b/src/test/java/features/timesheet.feature[m
+[36m@@ -1,6 +1,6 @@[m
+ Feature: Timesheet creation  [m
+    [m
+[31m-   @timesheet [m
+[32m+[m[32m   @timesheetno[m
+    Scenario: User should be able to submit a new timesheet[m
+ 	   Given User is logged in the timesheet application with specified credentails[m
+ 	   | Timesheet Url * | Username * | Password * |[m
+[1mdiff --git a/src/test/java/features/timesheet_slachtaoCGI.feature b/src/test/java/features/timesheet_slachtaoCGI.feature[m
+[1mindex 5ca636d..499c9dd 100644[m
+[1m--- a/src/test/java/features/timesheet_slachtaoCGI.feature[m
+[1m+++ b/src/test/java/features/timesheet_slachtaoCGI.feature[m
+[36m@@ -4,7 +4,7 @@[m [mFeature: Timesheet creation[m
+    Scenario: User should be able to submit a new timesheet[m
+ 	   Given User is logged in the timesheet application with specified credentails[m
+ 	   | Username * | Password * |[m
+[31m-	   |  |  | [m
+[32m+[m	[32m   | ondrej.slachta | Livorno3240 |[m
+ 	   When User navigates to CGI Timesheet Reports[m
+ 	   And User fill main time report details[m
+ 	   | Empl ID *   | Period End Date * |[m
+[1mdiff --git a/src/test/java/steps/steps_slachtaoCGI.java b/src/test/java/steps/steps_slachtaoCGI.java[m
+[1mindex ff75304..ea14aa7 100644[m
+[1m--- a/src/test/java/steps/steps_slachtaoCGI.java[m
+[1m+++ b/src/test/java/steps/steps_slachtaoCGI.java[m
+[36m@@ -182,13 +182,21 @@[m [mpublic class steps_slachtaoCGI {[m
+ 		browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);[m
+ 		*/[m
+ 		[m
+[32m+[m		[32m// change to the main iframe[m
+[32m+[m				[32mWebElement mainIframe = browser.findElement(By.xpath("//iframe[@title='Main Content']"));[m
+[32m+[m				[32mbrowser.switchTo().frame(mainIframe);[m
+[32m+[m[41m		[m
+[32m+[m		[32m//Thread.sleep(10000);[m
+[32m+[m[41m		[m
+ 		// fill in activity[m
+ 		// id: ACTIVITY_CODE$0[m
+ 		WebElement textActivity = browser.findElement(By.id("ACTIVITY_CODE$0"));[m
+ 		textActivity.clear();[m
+ 		textActivity.sendKeys(activityCode);[m
+ 		[m
+[31m-[m
+[32m+[m		[32m// change to the main iframe[m
+[32m+[m				[32mWebElement mainIframe2 = browser.findElement(By.xpath("//iframe[@title='Main Content']"));[m
+[32m+[m				[32mbrowser.switchTo().frame(mainIframe2);[m
+ 		[m
+ 		// fill in the hours[m
+ 		/*[m
