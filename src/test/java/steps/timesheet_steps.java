@@ -24,7 +24,7 @@ public class timesheet_steps {
 		String username = data.get(1).get(1);
 		String password = data.get(1).get(2);
 				
-		// navigate to timesheet login page
+		// navigate to timesheet login page blablabla
 		browser.get(timesheetUrl);
 		
 		// find the elements
