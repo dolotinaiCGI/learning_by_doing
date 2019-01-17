@@ -29,7 +29,7 @@ public class steps_slachtaoCGI {
 	    
 		
 		// navigate to timesheet login page
-		browser.get("");
+		browser.get("https://psa-fs.ent.cgi.com/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_LANDINGPAGE.GBL?");
 		
 		// get the credentials data from scenario
 		List<List<String>> data = credentialsTable.raw();
