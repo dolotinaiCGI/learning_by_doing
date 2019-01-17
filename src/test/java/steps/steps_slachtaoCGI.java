@@ -3,6 +3,7 @@ package steps;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import framework.DriverUtil;
+import framework.Helpers;
 import framework.Wrappers;
 
 public class steps_slachtaoCGI {
@@ -28,15 +30,13 @@ public class steps_slachtaoCGI {
 	public void user_is_logged_in_the_timesheet_application_with_specified_credentails(DataTable credentialsTable) throws Exception {
 	    
 		
-		// navigate to timesheet login page
-		browser.get("https://psa-fs.ent.cgi.com/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_LANDINGPAGE.GBL?");
 		
 		// get the credentials data from scenario
+		/* obsolete
 		List<List<String>> data = credentialsTable.raw();
-		
-		
 		String username = data.get(1).get(0);
 		String password = data.get(1).get(1);
+		*/
 		
 		/*
 		System.out.println("cred table");
@@ -51,6 +51,31 @@ public class steps_slachtaoCGI {
 		System.out.println(data.get(0) );
 		System.out.println("");
 		 */
+		
+		
+		
+		
+		// new credentials from the file
+		// get the url and credentials from the classified.txt file 
+		ArrayList<String> classifiedInfo = Helpers.getClassifiedInformation();
+		
+		String timesheetUrl = classifiedInfo.get(0);
+		String username = classifiedInfo.get(1);
+		String password = classifiedInfo.get(2);
+		/*
+		System.out.println("clas info");
+		System.out.println(classifiedInfo);
+		System.out.println("");
+		
+		System.out.println("pwd");
+		System.out.println(password);
+		System.out.println("");
+		*/
+		// navigate to timesheet login page
+		browser.get(timesheetUrl);
+				
+				
+		
 		
 		// find the elements
 		WebElement inputUsername = browser.findElement(By.id("userid"));
