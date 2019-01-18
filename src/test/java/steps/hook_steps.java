@@ -30,7 +30,7 @@ public class hook_steps {
 		System.out.println("Execution finished for the scenario: " + scenario.getName());
 		
 		WebDriver browser = DriverUtil.getDriver();
-		browser.close();
+//		browser.close();
 	}
 	
 }
